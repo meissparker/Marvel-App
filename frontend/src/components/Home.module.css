@@ -1,0 +1,73 @@
+.heroSection {
+    position: relative;
+    height: 100vh;
+    background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzSmoOm40RoLupCKDhMlCgEW9-j63g1j2iUw&s') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+
+.heroCard {
+    padding: 2rem;
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 16px rgba (0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.cardContainer {
+    position: relative;
+    z-index: 2;
+}
+
+.welcome {
+    color: red !important;
+    margin-top: 30px !important;
+    font-size: xx-large !important;
+}
+
+.text {
+    margin-top: 20px;
+    font-size: large;
+}
+
+
+
+
+@media screen and (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+    }
+
+    .title {
+        padding-top: 60%
+    }
+
+    
+    
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
