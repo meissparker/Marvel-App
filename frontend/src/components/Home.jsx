@@ -22,8 +22,7 @@ function Home() {
                     <Card.Text className={styles.text}>Enjoy this huge library of information about the universe's mighiest heroes!</Card.Text>
                     <Card.Text className={styles.text}>Choose View Characters to find tons of awesome marvel characters!</Card.Text>
                     <Card.Text className={styles.text}>You can also change a character's attributes or delete the character.</Card.Text>
-                    <Card.Text className={styles.text}>What's more, you can be just like Stan Lee and choose Create Character to create</Card.Text>
-                    <Card.Text className={styles.text}>your own amazing characters with cool powers and interesting backstories!</Card.Text>
+                    <Card.Text className={styles.text}>Choose Create Character to create your own superherores and villains!</Card.Text>
                 </Card.Body>
             </Card>
         </Container>

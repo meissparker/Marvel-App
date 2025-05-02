@@ -18,6 +18,11 @@
     margin-top: 30px;
 }
 
+.title {
+    margin-top: 5px;
+    color: red;
+}
+
 .messagebox {
     display: flex;
     justify-content: center;

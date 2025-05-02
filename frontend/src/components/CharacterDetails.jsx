@@ -7,6 +7,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import styles from './CharacterDetails.module.css';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal'
+import Alert from 'react-bootstrap/Alert'
 
 function CharacterDetails() {
     const [formData, setFormData] = useState({
@@ -26,6 +27,8 @@ function CharacterDetails() {
       const [showModal, setShowModal] = useState(false);
       const handleShowModal = () => setShowModal(true)
       const handleCloseModal = () => setShowModal(false);
+      const [validated, setValidated] = useState(false)
+      const [submitted, setSubmitted] = useState(false)
       
       
     
@@ -79,10 +82,20 @@ function CharacterDetails() {
     
         const handleEdit = (e) => {
             e.preventDefault();
+            const form = e.currentTarget;
+
+            if (form.checkValidity() === false) {
+              e.stopPropagation();
+              setValidated(true);
+              return;
+            }
+
+            setValidated(true);
+
             axios.put(`http://127.0.0.1:5000/characters/${id}`, formData)
             .then(() => {
-                setEditMode(false);
-                setMessage("Character updated successfully!")
+                setSubmitted(true);
+                setError(null)
 
             })
             .catch((error) => {
@@ -96,20 +109,26 @@ function CharacterDetails() {
           <div className={styles.messagebox}>
           <p className={styles.message}>Loading Character...</p>
           </div>)
-        
+
         if (error) return (
           <div className={styles.messagebox}>
-         <p className={styles.message}>{error}</p>
-         </div>)
+          <p className={styles.message}>{error}</p>
+          </div>)
 
         if (message) return (
           <div className={styles.messagebox}>
-        <p className={styles.message}>{message}</p>
-        </div>)
+          <p className={styles.message}>{message}</p>
+          </div>)
     
         return( 
           editMode ? (
-            <Form onSubmit={handleEdit} className={styles.editform}>
+            <Container>
+            <h2 className={styles.title}>Edit Character</h2>
+
+            {submitted && <Alert variant="success" dismissible>{character.name} updated successfully!</Alert>}
+            {error && <Alert variant="danger" dismissible>{error}</Alert>}
+
+            <Form noValidate validated={validated} onSubmit={handleEdit} className={styles.editform}>
 
               <Form.Group>
                 <Form.Label className={styles.name_label}>Name: </Form.Label>
@@ -119,7 +138,11 @@ function CharacterDetails() {
                 value={formData.name}
                 onChange={handleInputChange}
                 placeholder="Title"
+                required
                 />
+                <Form.Control.Feedback type="invalid">
+                  Name is required.
+                </Form.Control.Feedback>
               </Form.Group>
 
               <Form.Group>
@@ -141,7 +164,11 @@ function CharacterDetails() {
                   value={formData.alignment}
                   onChange={handleInputChange}
                   placeholder="Alignment"
+                  required
                   />
+                  <Form.Control.Feedback type="invalid">
+                  Alignment is required.
+                </Form.Control.Feedback>
               </Form.Group>
 
               <Form.Group>
@@ -169,6 +196,7 @@ function CharacterDetails() {
               <Button type="submit" className={styles.edit}>Save Changes</Button>
 
             </Form>
+            </Container>
           ) : (
             <>
             <Container className={styles.content_box}>

@@ -20,6 +20,7 @@ function CreateCharacter() {
     const [submitted, setSubmitted] = useState(false)
     const navigate = useNavigate();
     const [character, setCharacter] = useState();
+    const [validated, setValidated] = useState(false);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -31,6 +32,15 @@ function CreateCharacter() {
 
     const handlePost = async (e) => {
         e.preventDefault();
+        const form = e.currentTarget;
+
+        if (form.checkValidity() === false) {
+          e.stopPropagation();
+          setValidated(true);
+          return;
+        }
+
+        setValidated(true)
         
 
         try {
@@ -51,7 +61,7 @@ function CreateCharacter() {
             {submitted && <Alert variant="success" dismissible>{character.name} created successfully!</Alert>}
             {error && <Alert variant="danger" dismissible>{error}</Alert>}
 
-            <Form onSubmit={handlePost} className={styles.form}>
+            <Form noValidate validated={validated} onSubmit={handlePost} className={styles.form}>
                 <Form.Group>
                     <Form.Label className={styles.label}>Name:</Form.Label>
                     <Form.Control
@@ -60,7 +70,11 @@ function CreateCharacter() {
                         value={formData.name}
                         onChange={handleInputChange}
                         placeholder="Name"
+                        required
                     />
+                    <Form.Control.Feedback type="invalid">
+                      Name is required.
+                    </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group>
@@ -82,7 +96,11 @@ function CreateCharacter() {
                         value={formData.alignment}
                         onChange={handleInputChange}
                         placeholder="Alignment"
+                        required
                     />
+                    <Form.Control.Feedback type="invalid">
+                      Alignment is required.
+                    </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group>

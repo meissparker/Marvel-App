@@ -36,7 +36,12 @@
 
 .edit {
     margin-top: 30px;
-    ;
+    
+}
+
+.title {
+    margin-top: 5px;
+    color: red
 }
 
 .messagebox {
@@ -48,8 +53,9 @@
     position: fixed;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 9999
+    z-index: 9999;
+    color: red;
+    font-size: large;
 
 }
 
